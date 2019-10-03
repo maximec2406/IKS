@@ -22,6 +22,10 @@ public class Account {
     @Column
     private String extBranchName;
 
+
+    @ManyToOne
+    private Org org;
+
     public Account() {
     }
 

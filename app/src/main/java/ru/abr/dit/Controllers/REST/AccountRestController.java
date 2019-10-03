@@ -1,10 +1,7 @@
-package ru.abr.dit.Controllers;
+package ru.abr.dit.Controllers.REST;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.abr.dit.DAO.MainDAO;
 import ru.abr.dit.Models.Account;
 
@@ -12,12 +9,13 @@ import java.util.List;
 
 
 @RestController
-public class RESTAccountController {
+@RequestMapping(path="/api/account")
+public class AccountRestController {
 
     @Autowired
     private MainDAO dao;
 
-    @PostMapping("/api/addAccount")
+    @PostMapping
     public boolean addAccount(@RequestParam long account, long bic) {
 
         Account newAccount = new Account(account, bic);
@@ -25,7 +23,13 @@ public class RESTAccountController {
 
     }
 
-    @GetMapping("/api/accounts")
+    @DeleteMapping
+    public boolean deleteAccount(@RequestParam int id){
+
+        return (dao.deleteAccountById(id));
+    }
+
+    @GetMapping("/all")
     public List<Account> getAllAccounts(){
         return dao.getAllAccounts();
     }
