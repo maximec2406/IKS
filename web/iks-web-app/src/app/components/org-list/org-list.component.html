@@ -5,7 +5,7 @@
         <h3>Список Организаций</h3>
       </div>
       <div>
-        <a class="waves-effect waves-light btn" (click)="getAddLOrgForm()" )>Добавить Организацию</a>
+        <a class="waves-effect waves-light btn" (click)="getAddLOrgForm()">Добавить Организацию</a>
       </div>
     </div>
   </div>
@@ -15,21 +15,21 @@
         <h3>Добавить Организацию</h3>
       </div>
       <div>
-        <a class="waves-effect waves-light btn" (click)="getAddLOrgForm()" )>Список Организаций</a>
+        <a class="waves-effect waves-light btn" (click)="getAddLOrgForm()">Список Организаций</a>
       </div>
     </div>
     <div>
-      <p>
-        <input type="text" *ngModel="[(orgExtId)]">
+      <p>orgExtId
+        <input type="text" [(ngModel)]="orgExtId">
+      </p>
+      <p>orgName
+        <input type="text" [(ngModel)]="orgName">
+      </p>
+      <p>orgLegacyId
+        <input type="text" [(ngModel)]="orgLegacyId">
       </p>
       <p>
-        <input type="text" *ngModel="[(orgName)]">
-      </p>
-      <p>
-        <input type="text" *ngModel="[(orgLegacyId)]">
-      </p>
-      <p>
-        <a class="waves-effect waves-light btn" (click)="createOrg()" )>Сохранить Организацию</a>
+        <a class="waves-effect waves-light btn" (click)="createOrg()">Сохранить Организацию</a>
       </p>
     </div>
   </div>

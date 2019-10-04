@@ -40,7 +40,7 @@ public class ApplicationConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("http://localhost:8282");
+        registry.addMapping("/**").allowedOrigins("http://localhost:4200");
     }
 
     @Bean
