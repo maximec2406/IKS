@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OrgListComponent } from './org-list.component';
+import { AccountControllerComponent } from './account-controller.component';
 
-describe('OrgListComponent', () => {
-  let component: OrgListComponent;
-  let fixture: ComponentFixture<OrgListComponent>;
+describe('AccountControllerComponent', () => {
+  let component: AccountControllerComponent;
+  let fixture: ComponentFixture<AccountControllerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OrgListComponent ]
+      declarations: [ AccountControllerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OrgListComponent);
+    fixture = TestBed.createComponent(AccountControllerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

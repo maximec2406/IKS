@@ -1,5 +1,7 @@
 package ru.abr.dit.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -20,7 +22,8 @@ public class Org {
     @Column(nullable = false, unique = true)
     private int legacyId;
 
-    @OneToMany(mappedBy = "org")
+    @OneToMany(mappedBy = "org", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Account> accounts;
 
     public Org() {
@@ -58,5 +61,13 @@ public class Org {
 
     public void setLegacyId(int legacyId) {
         this.legacyId = legacyId;
+    }
+
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
     }
 }

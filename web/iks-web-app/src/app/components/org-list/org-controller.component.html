@@ -1,0 +1,71 @@
+<div class="abr-content-body">
+
+  <!-- Сообщение об ошибке начало-->
+  <div *ngIf="errorMsg" class="abr-error-message">
+    <div>
+      <p>{{errorMsg}}</p>
+    </div>
+  </div>
+  <!-- Сообщение об ошибке конец -->
+
+  <!-- Режим Списка начало -->
+  <div *ngIf="!isAddOrg">
+    <div class="abr-list-head">
+      <div>
+        <h3>Список Организаций</h3>
+      </div>
+      <div>
+        <a class="waves-effect waves-light btn" (click)="getAddOrgForm()">Добавить Организацию</a>
+      </div>
+    </div>
+    <div class="abr-list-body">
+      <div *ngIf="orgList.length > 0">
+        <table border='1'>
+          <tr>
+            <th>Bss_id</th>
+            <th>Name</th>
+            <th>legacy_id</th>
+          </tr>
+          <tr *ngFor = 'let o of orgList' (click)="getOrgAccounts(o.id)">
+            <td>{{o.extId}}</td>
+            <td>{{o.name}}</td>
+            <td>{{o.legacyId}}</td>
+          </tr>
+        </table>
+      </div>
+      <div *ngIf="!orgList.length > 0">
+        <p>Организации не заведены</p>
+      </div>
+    </div>
+  </div>
+  <!-- Режим списка конец -->
+
+  <!-- Режим правки начало -->
+  <div *ngIf="isAddOrg">
+    <div class="abr-list-head">
+      <div >
+        <h3>Добавить Организацию</h3>
+      </div>
+      <div>
+        <a class="waves-effect waves-light btn" (click)="getOrgList()">Список Организаций</a>
+      </div>
+    </div>
+    <div class="abr-list-body">
+      <div>
+        <p>orgExtId
+          <input type="text" [(ngModel)]="orgExtId">
+        </p>
+        <p>orgName
+          <input type="text" [(ngModel)]="orgName">
+        </p>
+        <p>orgLegacyId
+          <input type="text" [(ngModel)]="orgLegacyId">
+        </p>
+        <p>
+          <a class="waves-effect waves-light btn" (click)="createOrg()">Сохранить Организацию</a>
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- Режим правки конец -->
+</div>

@@ -1,0 +1,76 @@
+<div class="abr-content-body">
+
+  <!-- Сообщение об ошибке начало-->
+  <div *ngIf="errorMsg" class="abr-error-message">
+    <div>
+      <p>{{errorMsg}}</p>
+    </div>
+  </div>
+  <!-- Сообщение об ошибке конец -->
+
+  <!-- Режим Списка начало -->
+  <div *ngIf="!isAddAcc">
+    <div class="abr-list-head">
+      <div>
+        <h3>Список Счетов</h3>
+      </div>
+      <div>
+        <a class="waves-effect waves-light btn" (click)="getAddAccForm()">Добавить Счет</a>
+      </div>
+    </div>
+    <div class="abr-list-body">
+      <div *ngIf="accList.length > 0">
+        <table border='1'>
+          <tr>
+            <th>id</th>
+            <th>number</th>
+            <th>branch name</th>
+            <th>bic</th>
+          </tr>
+          <tr *ngFor = 'let acc of accList'>
+            <td>{{acc.id}}</td>
+            <td>{{acc.number}}</td>
+            <td>{{acc.branchName}}</td>
+            <td>{{acc.bic}}</td>
+          </tr>
+        </table>
+      </div>
+      <div *ngIf="!accList.length > 0">
+        <p>Счета не заведены</p>
+      </div>
+    </div>
+  </div>
+  <!-- Режим списка конец -->
+
+  <!-- Режим правки начало -->
+  <div *ngIf="isAddAcc">
+    <div class="abr-list-head">
+      <div >
+        <h3>Добавить счет</h3>
+      </div>
+      <div>
+        <a class="waves-effect waves-light btn" (click)="getAccList()">Список счетов</a>
+      </div>
+    </div>
+    <div class="abr-list-body">
+      <div>
+        <p>accExtId
+          <input type="text" [(ngModel)]="accExtId">
+        </p>
+        <p>accNumber
+          <input type="text" [(ngModel)]="accNumber">
+        </p>
+        <p>accBranchName
+          <input type="text" [(ngModel)]="accBranchName">
+        </p>
+        <p>accBic
+          <input type="text" [(ngModel)]="accBic">
+        </p>
+        <p>
+          <a class="waves-effect waves-light btn" (click)="createAcc()">Сохранить счет</a>
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- Режим правки конец -->
+</div>

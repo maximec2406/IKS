@@ -1,8 +1,5 @@
 package ru.abr.dit.Controllers.REST;
 
-import com.fasterxml.jackson.core.JsonEncoding;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.abr.dit.DAO.MainDAO;
@@ -22,7 +19,6 @@ public class OrgRestController {
     @PostMapping
     public boolean addOrg(@RequestBody  Org o) {
 
-//        Org newOrg = new Org(extId,name,legacyId);
         return (dao.addOrg(o));
 
     }
@@ -34,8 +30,8 @@ public class OrgRestController {
     }
 
     @GetMapping("/all")
-    public List<Account> getAllOrgs(){
-        return dao.getAllAccounts();
+    public List<Org> getAllOrg(){
+        return dao.getAllOrg();
     }
 
     @GetMapping(path = "/{id}/accounts")

@@ -69,4 +69,12 @@ public class Account {
     public void setExtBranchName(String extBranchName) {
         this.extBranchName = extBranchName;
     }
+
+    public Org getOrg() {
+        return org;
+    }
+
+    public void setOrg(Org org) {
+        this.org = org;
+    }
 }

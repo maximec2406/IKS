@@ -20,4 +20,12 @@ export class RequestService {
     return this.http.post(this.serverUrl + "/org", org,{headers:  this.getHeaders()})
   }
 
+  getOrgAccounts(id){
+    return id !== 0 ? this.http.get(this.serverUrl + "/org/" + id + "/accounts",{headers:  this.getHeaders()}) : this.http.get(this.serverUrl + "/accounts",{headers:  this.getHeaders()});
+  }
+
+  createAcc(acc){
+    return this.http.post(this.serverUrl + "/account", acc,{headers:  this.getHeaders()})
+  }
+
 }

@@ -84,7 +84,7 @@ public class MainDAO {
         }
     }
 
-    public List<Account> getAllOrgs(){
+    public List<Org> getAllOrg(){
         try{
             return em.createQuery("from Org").getResultList();
         } catch (Exception e) {
@@ -121,7 +121,7 @@ public class MainDAO {
     public List<Account> getAccountsByOrgId(int id){
 
         try{
-            return em.createQuery("select accounts from Org where id=:id").setParameter("id", id).getResultList();
+            return em.createQuery("select accounts from Org o where o.id=:id").setParameter("id", id).getResultList();
         } catch (EmptyResultDataAccessException e){
             log.warn("1. Счета организации с id " + id + " не найдены");
             return null;

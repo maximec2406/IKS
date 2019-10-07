@@ -66,6 +66,7 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:5.1.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-orm:5.1.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:5.1.5.RELEASE" />
+          <element id="library" level="project" name="Maven: org.json:json:20190722" />
         </element>
       </element>
     </root>
