@@ -48,7 +48,7 @@ export class OrgControllerComponent implements OnInit {
     });
   }
 
-  hiddenErrorMessage(){
+  clearErrorMsg(){
     this.errorMsg='';
   }
 

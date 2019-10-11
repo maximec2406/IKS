@@ -10,11 +10,11 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false, unique = true)
-    private long account;
+    @Column(nullable = false)
+    private String account;
 
     @Column(nullable = false)
-    private long bic;
+    private int bic;
 
     @Column
     private String extid;
@@ -29,7 +29,7 @@ public class Account {
     public Account() {
     }
 
-    public Account(long account, long bic) {
+    public Account(String account, int bic) {
         this.account = account;
         this.bic = bic;
     }
@@ -38,19 +38,19 @@ public class Account {
         return id;
     }
 
-    public long getAccount() {
+    public String getAccount() {
         return account;
     }
 
-    public void setAccount(long account) {
+    public void setAccount(String account) {
         this.account = account;
     }
 
-    public long getBic() {
+    public int getBic() {
         return bic;
     }
 
-    public void setBic(long bic) {
+    public void setBic(int bic) {
         this.bic = bic;
     }
 

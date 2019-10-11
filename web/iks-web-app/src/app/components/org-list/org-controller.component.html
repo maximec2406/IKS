@@ -1,12 +1,21 @@
-<div class="abr-content-body">
-
-  <!-- Сообщение об ошибке начало-->
-  <div *ngIf="errorMsg" class="abr-error-message">
+<!-- Сообщение об ошибке начало-->
+<div *ngIf="errorMsg" class="abr-error-message">
+  <div>
     <div>
-      <p>{{errorMsg}}</p>
+      <div>
+        <p>{{errorMsg}}</p>
+      </div>
+      <div>
+        <p>
+          <a class="waves-effect waves-light btn" (click)="clearErrorMsg()">   Ок   </a>
+        </p>
+      </div>
     </div>
   </div>
-  <!-- Сообщение об ошибке конец -->
+</div>
+<!-- Сообщение об ошибке конец -->
+
+<div class="abr-content-body">
 
   <!-- Режим Списка начало -->
   <div *ngIf="!isAddOrg">

@@ -24,8 +24,16 @@ export class RequestService {
     return id !== 0 ? this.http.get(this.serverUrl + "/org/" + id + "/accounts",{headers:  this.getHeaders()}) : this.http.get(this.serverUrl + "/accounts",{headers:  this.getHeaders()});
   }
 
-  createAcc(acc){
-    return this.http.post(this.serverUrl + "/account", acc,{headers:  this.getHeaders()})
+  createUpdateAcc(acc){
+    return this.http.post(this.serverUrl + "/account", acc,{headers:  this.getHeaders()});
+  }
+
+  deleteAcc(accId){
+    return this.http.delete(this.serverUrl + "/account/" + accId, {headers: this.getHeaders()});
+  }
+
+  sendStmtReq(accId, dateFrom, dateTo){
+    return this.http.post(this.serverUrl + "/account/stmtreq", {"id": accId, "dateFrom": dateFrom, "dateTo": dateTo},{headers:  this.getHeaders()})
   }
 
 }

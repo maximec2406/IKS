@@ -7,6 +7,7 @@
     <groupId>ru.abr.dit</groupId>
     <artifactId>IKS</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <dependencies>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -73,6 +74,19 @@
             <version>1.2.17</version>
         </dependency>
 <!--        Логирование конец-->
+
+<!--        Работа с soap начало -->
+        <dependency>
+            <groupId>wsdl4j</groupId>
+            <artifactId>wsdl4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml.soap</groupId>
+            <artifactId>javax.xml.soap-api</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+<!--        Работа с soap конец-->
     </dependencies>
 
 <!--    Профили для логирования начало

@@ -7,6 +7,7 @@
         <element id="directory" name="classes">
           <element id="module-output" name="IKS" />
           <element id="jpa-descriptors" facet="IKS/jpa/JPA" />
+          <element id="module-output" name="webclient" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: antlr:antlr:2.7.7" />
@@ -67,6 +68,10 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-orm:5.1.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:5.1.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.json:json:20190722" />
+          <element id="library" level="project" name="Maven: wsdl4j:wsdl4j:1.6.1" />
+          <element id="library" level="project" name="JAX-WS-Glassfish / JAX-WS 2.2 RI / Metro 1.X / JWSDP 2.2 (2)" />
+          <element id="library" level="project" name="Maven: javax.xml.soap:javax.xml.soap-api:1.4.0" />
+          <element id="library" level="project" name="srp-1.1-SNAPSHOT" />
         </element>
       </element>
     </root>

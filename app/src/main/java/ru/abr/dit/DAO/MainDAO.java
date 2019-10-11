@@ -70,6 +70,16 @@ public class MainDAO {
         }
     }
 
+    public boolean updateAccount(Account acc){
+        try{
+            em.merge(acc);
+            return true;
+        } catch (Exception e){
+            this.addErrorLog(e);
+            return false;
+        }
+    }
+
     // Счета конец
 
 

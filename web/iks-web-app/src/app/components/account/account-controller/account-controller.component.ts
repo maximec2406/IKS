@@ -11,12 +11,14 @@ export class AccountControllerComponent implements OnInit {
 
   accList=[];
   orgId;
+  accId;
   isAddAcc;
-  accExtId;
   accNumber;
   accBranchName;
   accBic;
   errorMsg;
+  dateFrom;
+  dateTo;
 
   constructor(private req: RequestService, private router: Router, private route: ActivatedRoute) { }
 
@@ -29,11 +31,14 @@ export class AccountControllerComponent implements OnInit {
     this.isAddAcc = false;
     this.clearAccForm();
     this.errorMsg = '';
+    this.dateFrom = null;
+    this.dateTo = null;
 
   }
 
   getAddAccForm(){
     this.isAddAcc = true;
+    this.accId = 0;
   }
 
   getAccList(){
@@ -42,20 +47,86 @@ export class AccountControllerComponent implements OnInit {
   }
 
   clearAccForm(){
-    this.accExtId="";
     this.accNumber="";
     this.accBranchName="";
     this.accBic="";
   }
 
   createAcc(){
-    let acc = {"extid" : this.accExtId, "account" : this.accNumber, "extBranchName" : this.accBranchName, "bic" : this.accBic, "orgId": this.orgId};
-    this.req.createAcc(acc).subscribe((data:any) => {
-      if(data){
-        this.req.getOrgAccounts(this.orgId).subscribe((data:any)=> {this.accList = data; this.getAccList()});
-      } else { this.errorMsg = 'Не удалось сохранить счет'}
-    });
+    if (this.accId != 0){
+      this.errorMsg = "Попытка обновления нового счета"
+    } else {
+      let acc = {
+        "id": this.accId,
+        "account": this.accNumber,
+        "extBranchName": this.accBranchName,
+        "bic": this.accBic,
+        "orgId": this.orgId
+      };
+      this.req.createUpdateAcc(acc).subscribe((data: any) => {
+        if (data) {
+          this.req.getOrgAccounts(this.orgId).subscribe((data: any) => {
+            this.accList = data;
+            this.getAccList()
+          });
+        } else {
+          this.errorMsg = 'Не удалось создать счет'
+        }
+      });
+    }
   }
+
+  editAccount(acc){
+    this.getAddAccForm();
+    this.accNumber = acc.account;
+    this.accId = acc.id;
+    this.accBic = acc.bic;
+    this.accBranchName = acc.extBranchName;
+  }
+
+  deleteAcc(){
+    if (this.accId == 0){
+      this.errorMsg = "Попытка удаления несущестующего счета"
+    } else {
+      this.req.deleteAcc(this.accId).subscribe((data: any) => {
+        if (data) {
+          this.req.getOrgAccounts(this.orgId).subscribe((data: any) => {
+            this.accList = data;
+            this.getAccList()
+          });
+        } else {
+          this.errorMsg = 'Не удалось удалить счет'
+        }
+      })
+    }
+  }
+
+  updateAcc(){
+    if (this.accId == 0){
+      this.errorMsg = "Попытка сохранения несущестующего счета"
+    } else {
+      let acc = {"id": this.accId, "account" : this.accNumber, "extBranchName" : this.accBranchName, "bic" : this.accBic, "orgId": this.orgId};
+      this.req.createUpdateAcc(acc).subscribe((data:any) => {
+        if(data){
+          this.req.getOrgAccounts(this.orgId).subscribe((data:any)=> {this.accList = data; this.getAccList()});
+        } else { this.errorMsg = 'Не удалось сохранить счет'}
+      });
+    }
+  }
+
+  sendStateReq(){
+    if (this.dateFrom == null || this.dateTo == null)
+      this.errorMsg="Даты для запроса не заполнены";
+    else {
+      this.req.sendStmtReq(this.accId, this.dateFrom, this.dateTo).subscribe((data:any) => alert("Юху")) ;
+      this.errorMsg="Запрос успешно отправлен";
+    }
+  }
+
+  clearErrorMsg(){
+    this.errorMsg="";
+  }
+
 
 
 

@@ -5,20 +5,43 @@ body {
 }
 
 .abr-error-message{
+  position: fixed;
+  top: 0px;
+  color: black;
   height: 100vh;
   width: 100vw;
   z-index: 10;
-  background-color: rgb(7,7,7);
-  opacity: 10%;
+  background-color: rgba(156, 156, 156, 0.5);;
   display: flex;
   justify-content: center;
 }
 
-.abr-error-message div {
-  mergin: auto;
-  height: 10em;
-  width: 30em;
+.abr-error-message > div {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(250,250,250, 0.7);
+  border-radius: 15px;
+
 }
+
+.abr-error-message > div > div {
+  color: black;
+  font-size: large;
+  padding: 30px;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.abr-error-message a {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+
 
 
 .abr-content-head {
@@ -100,3 +123,19 @@ nav {
   min-width: 200px;
   margin: auto;
 }
+
+.abr-btn {
+  margin: auto;
+  padding: 2em;
+}
+
+.abr-btn-list{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.abr-btn-list > div {
+  padding-right: 2em;
+}
+

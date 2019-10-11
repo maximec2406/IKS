@@ -1,13 +1,20 @@
-<div class="abr-content-body">
-
-  <!-- Сообщение об ошибке начало-->
-  <div *ngIf="errorMsg" class="abr-error-message">
+<!-- Сообщение об ошибке начало-->
+<div *ngIf="errorMsg" class="abr-error-message">
+  <div>
     <div>
-      <p>{{errorMsg}}</p>
+      <div>
+        <p>{{errorMsg}}</p>
+      </div>
+      <div>
+        <p>
+          <a class="waves-effect waves-light btn" (click)="clearErrorMsg()">   Ок   </a>
+        </p>
+      </div>
     </div>
   </div>
-  <!-- Сообщение об ошибке конец -->
-
+</div>
+<!-- Сообщение об ошибке конец -->
+<div class="abr-content-body">
   <!-- Режим Списка начало -->
   <div *ngIf="!isAddAcc">
     <div class="abr-list-head">
@@ -22,15 +29,13 @@
       <div *ngIf="accList.length > 0">
         <table border='1'>
           <tr>
-            <th>id</th>
             <th>number</th>
             <th>branch name</th>
             <th>bic</th>
           </tr>
-          <tr *ngFor = 'let acc of accList'>
-            <td>{{acc.id}}</td>
-            <td>{{acc.number}}</td>
-            <td>{{acc.branchName}}</td>
+          <tr *ngFor = 'let acc of accList' (click)="editAccount(acc)">
+            <td>{{acc.account}}</td>
+            <td>{{acc.extBranchName}}</td>
             <td>{{acc.bic}}</td>
           </tr>
         </table>
@@ -54,9 +59,6 @@
     </div>
     <div class="abr-list-body">
       <div>
-        <p>accExtId
-          <input type="text" [(ngModel)]="accExtId">
-        </p>
         <p>accNumber
           <input type="text" [(ngModel)]="accNumber">
         </p>
@@ -66,9 +68,36 @@
         <p>accBic
           <input type="text" [(ngModel)]="accBic">
         </p>
-        <p>
-          <a class="waves-effect waves-light btn" (click)="createAcc()">Сохранить счет</a>
-        </p>
+        <div *ngIf="accId != 0">
+          <div class="row">
+            <div class="col s4">
+              <p>Дата С
+                <input type="date" [(ngModel)]="dateFrom">
+              </p>
+            </div>
+            <div class="col s4">
+              <p>Дата По
+                <input type="date" [(ngModel)]="dateTo">
+              </p>
+            </div>
+            <div class="col s4">
+              <div class="abr-btn">
+              <a class="waves-effect waves-light btn" (click)="sendStateReq()">Отправить запрос</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="accId == 0">
+          <a class="waves-effect waves-light btn" (click)="createAcc()">Создать счет</a>
+        </div>
+        <div *ngIf="accId != 0" class="abr-btn-list">
+          <div>
+            <a class="waves-effect waves-light btn" (click)="updateAcc()">Сохранить счет</a>
+          </div>
+          <div>
+            <a class="waves-effect waves-light btn" (click)="deleteAcc()">Удалить счет</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
