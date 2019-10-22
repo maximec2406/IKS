@@ -1,13 +1,10 @@
 package ru.abr.dit.Configurations;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import ru.abr.dit.DAO.UPGDAO;
-
-import javax.xml.soap.SOAPConnectionFactory;
 
 @Configuration
 @PropertySource("classpath:corrconn.properties")

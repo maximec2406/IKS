@@ -26,13 +26,18 @@ public class Org {
     @JsonIgnore
     private List<Account> accounts;
 
+    @Column
+    private String inn;
+
     public Org() {
     }
 
-    public Org(String extId, String name, int legacyId) {
+    public Org(String extId, String name, int legacyId, String inn) {
         this.extId = extId;
         this.name = name;
         this.legacyId = legacyId;
+        this.inn = inn;
+
     }
 
     public int getId() {
@@ -69,5 +74,13 @@ public class Org {
 
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    public String getInn() {
+        return inn;
+    }
+
+    public void setInn(String inn) {
+        this.inn = inn;
     }
 }

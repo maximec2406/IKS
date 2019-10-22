@@ -1,10 +1,8 @@
 package ru.abr.dit.Services.SOAP;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
-import ru.abr.dit.DAO.UPGDAO;
 import ru.abr.dit.Services.LogService;
 
 

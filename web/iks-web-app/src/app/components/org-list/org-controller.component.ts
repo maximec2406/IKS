@@ -14,6 +14,7 @@ export class OrgControllerComponent implements OnInit {
   orgExtId;
   orgName;
   orgLegacyId;
+  orgInn;
   errorMsg;
 
   constructor(private req: RequestService, private router: Router) { }
@@ -37,10 +38,11 @@ export class OrgControllerComponent implements OnInit {
     this.orgName='';
     this.orgExtId='';
     this.orgLegacyId='';
+    this.orgInn='';
   }
 
   createOrg(){
-    let org = {"extId" : this.orgExtId, "name" : this.orgName, "legacyId" : this.orgLegacyId}
+    let org = {"extId" : this.orgExtId, "name" : this.orgName, "legacyId" : this.orgLegacyId, "inn": this.orgInn}
     this.req.createOrg(org).subscribe((data:any) => {
       if(data){
         this.req.getOrgs().subscribe((data:any)=> {this.orgList = data; this.getOrgList()});

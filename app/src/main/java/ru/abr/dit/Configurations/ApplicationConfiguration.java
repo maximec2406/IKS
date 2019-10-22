@@ -2,7 +2,7 @@ package ru.abr.dit.Configurations;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.*;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -14,13 +14,14 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-
-
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.SOAPConnectionFactory;
 import javax.xml.soap.SOAPException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @EnableJpaRepositories
 @EnableWebMvc
@@ -28,21 +29,20 @@ import javax.xml.soap.SOAPException;
 @ComponentScan("ru.abr.dit.*")
 @EnableTransactionManagement
 @PropertySource("classpath:corrconn.properties")
-@Import(SOAPConnectionConfiguration.class)
+@Import({SOAPConnectionConfiguration.class})
 public class ApplicationConfiguration extends WebMvcConfigurerAdapter {
 
-    @Value("${corr.host}")
-    private String host;
-    @Value("${corr.port}")
-    private String port;
-    @Value("${corr.login}")
-    private String login;
-    @Value("${corr.pass}")
-    private String pass;
-    @Value("${corr.protocol}")
-    private String protocol;
-    @Value("${corr.path}")
-    private String path;
+    @Bean(name = "root")
+    public Logger createLogger() {
+        return Logger.getRootLogger();
+
+    }
+
+    @Bean(name = "request")
+    public Logger createRequestLogger() {
+        return Logger.getLogger("request");
+
+    }
 
     @Bean
     public EntityManagerFactory createEntityManagerFactory(){
@@ -57,12 +57,7 @@ public class ApplicationConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("http://localhost:4200").allowedMethods("GET", "POST", "PUT", "DELETE");
-    }
-
-    @Bean
-    public Logger createLogger(){
-        return Logger.getRootLogger();
+        registry.addMapping("/**").allowedOrigins("http://localhost:4200").allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
     }
 
     @Bean
@@ -76,7 +71,7 @@ public class ApplicationConfiguration extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public SOAPConnectionFactory createSOAPConnectionFactory(@Autowired Logger logger){
+    public SOAPConnectionFactory createSOAPConnectionFactory(@Qualifier("root") Logger logger){
 
         SOAPConnectionFactory soapConnectionFactory = null;
         try {
@@ -88,7 +83,7 @@ public class ApplicationConfiguration extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public MessageFactory createMessageFactory(@Autowired Logger logger){
+    public MessageFactory createMessageFactory(@Qualifier("root") Logger logger){
 
         MessageFactory messageFactory = null;
 
@@ -99,6 +94,11 @@ public class ApplicationConfiguration extends WebMvcConfigurerAdapter {
         }
 
         return messageFactory;
+    }
+
+    @Bean
+    public SimpleDateFormat getSimpleDateFormat() throws ParseException {
+        return new SimpleDateFormat("yyyy-MM-dd");
     }
 
 }

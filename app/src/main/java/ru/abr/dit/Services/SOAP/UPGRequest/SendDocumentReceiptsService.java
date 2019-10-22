@@ -1,4 +1,4 @@
-package ru.abr.dit.Services.SOAP.ReqToCorr;
+package ru.abr.dit.Services.SOAP.UPGRequest;
 
 public class SendDocumentReceiptsService {
 }

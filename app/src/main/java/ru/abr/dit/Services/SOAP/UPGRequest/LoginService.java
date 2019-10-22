@@ -1,4 +1,4 @@
-package ru.abr.dit.Services.SOAP.ReqToCorr;
+package ru.abr.dit.Services.SOAP.UPGRequest;
 
 import com.bssys.srp.Engine;
 import com.bssys.srp.Return;
@@ -22,6 +22,7 @@ import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 
 @Service
@@ -46,7 +47,7 @@ public class LoginService {
                                    String bfs,      // BytesFromServer, верификатор пароля
                                    String pLB64,    // preloginIdBase64 - идентификатор запроса prelogin
                                    String userHash  // хеш идентификатор логина
-    ) {
+    ) throws UnsupportedEncodingException {
 
         String result = null;
 
@@ -58,10 +59,11 @@ public class LoginService {
 
         Return ret = null;
         try {
-            ret = Engine.eval( new String(Base64.getDecoder().decode(userHash)),
-                    new String(upgdao.getPass().getBytes()),
-                    new String(salt.getBytes()),
-                    new String(bfs.getBytes()), Boolean.valueOf("true"));
+            ret = Engine.eval( new String(Base64.getDecoder().decode(userHash),"windows-1251"),
+                    new String(upgdao.getPass().getBytes("UTF-8"),"windows-1251"),
+                    new String(salt.getBytes(),"windows-1251"),
+                    new String(bfs.getBytes(),"windows-1251"),
+                    Boolean.valueOf("true"));
         } catch (ScriptException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -77,22 +79,21 @@ public class LoginService {
         login.setUserLogin(upgdao.getLogin());
         login.setPreloginId(new String(Base64.getDecoder().decode(pLB64)));
 
-        // тут дополнительно раскодируем из Base64 параметры, т.к. при создании JAXBElement массив байт будет собран в строку и еще раз закодирован в base64
-        // если предварительно не раскодировать, получится двойная кодировка строк в base64
-        login.getClientAuthData().add(new String(Base64.getDecoder().decode(ret.getPasswordHash())).getBytes());
-        login.getClientAuthData().add(new String(Base64.getDecoder().decode(ret.getExtPasswordData())).getBytes());
+        login.getClientAuthData().add(ret.getPasswordHash());
+        login.getClientAuthData().add(ret.getExtPasswordData());
+
         JAXBElement eLogin = of.createLogin(login);
-
-
 
         try {
             JAXBContext.newInstance(Login.class).createMarshaller().marshal(eLogin, envelope.getBody());
             soapMessage.saveChanges();
             soapMessage.writeTo(System.out);
+            System.out.println("\n");
 
             // проверяем, доступен ли сервис
             try {
                 soapResp = abrSoapConnection.createSOAPConnection().call(soapMessage, upgdao.getSourceURI());
+                soapResp.saveChanges();
             } catch (SOAPException e){
                 ls.addErrorLog(e, "Ошибка отправки запроса Prelogin. Возможно сервис недоступен");
                 soapResp = null;
@@ -102,16 +103,15 @@ public class LoginService {
             if (soapResp != null){
 
                 soapResp.writeTo(System.out);
+                System.out.println("\n");
 
                 // Разбор ответа login начало
                 NodeList nl = soapResp.getSOAPBody().getElementsByTagName("return");
                 if (nl.getLength() == 1) {
-                    result = nl.item(1).getTextContent();
+                    result = nl.item(0).getTextContent();
                 } else {
                     result = "";
                 }
-
-
                 // Разбор ответа login конец
             }
 
@@ -125,6 +125,6 @@ public class LoginService {
         }
 
 
-        return "";
+        return result;
     }
 }

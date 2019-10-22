@@ -6,8 +6,13 @@ import org.springframework.web.bind.annotation.*;
 import ru.abr.dit.DAO.MainDAO;
 import ru.abr.dit.Models.Account;
 import ru.abr.dit.Models.Org;
-import ru.abr.dit.Services.SOAP.ReqToCorr.PreLoginService;
+import ru.abr.dit.Services.SOAP.UPGDocumentBody.PayDocRuBody;
+import ru.abr.dit.Services.SOAP.UPGDocumentBody.StatementRequestBody;
 
+import javax.xml.bind.JAXBException;
+import javax.xml.soap.SOAPException;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -21,13 +26,16 @@ public class AccountRestController {
     private MainDAO dao;
 
     @Autowired
-    private PreLoginService prelogin;
+    private StatementRequestBody upgStatementRequest;
+
+    @Autowired
+    private PayDocRuBody upgPayDocRu;
 
     @PostMapping
     public boolean saveAccount(@RequestBody LinkedHashMap<String, String> rbm) {
 
         int accId = Integer.valueOf(rbm.get("id"));
-        int bic = Integer.valueOf(rbm.get("bic"));
+        String bic = rbm.get("bic");
         String account = rbm.get("account").trim();
         String extBranchName = rbm.get("extBranchName");
         Org org = dao.findOrgById(Integer.valueOf(rbm.get("orgId")));
@@ -57,12 +65,6 @@ public class AccountRestController {
         return result;
 
     }
-//    public boolean addAccount(@RequestParam long account, long bic) {
-//
-//        Account newAccount = new Account(account, bic);
-//        return (dao.addAccount(newAccount));
-//
-//    }
 
     @DeleteMapping("/{id}")
     public boolean deleteAccount(@PathVariable int id){
@@ -76,9 +78,11 @@ public class AccountRestController {
     }
 
     @PostMapping("/stmtreq")
-    public boolean getStmtReq(LinkedHashMap<String, String> rbm){
+    public boolean getStmtReq(@RequestBody LinkedHashMap<String, String> rbm) throws ParseException, SOAPException, JAXBException, IOException {
 
-        prelogin.sendPreLoginRequest();
+        //upgStatementRequest.sendStatementRequest(Integer.valueOf(rbm.get("id")), rbm.get("dateFrom"), rbm.get("dateTo"));
+        upgPayDocRu.sendPayDocRu();
+
 
         return true;
 

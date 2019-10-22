@@ -5,3 +5,4 @@ out
 .idea
 .idea/*
 web/iks-web-app/node-modules
+app/src/main/resources/corrconn.properties

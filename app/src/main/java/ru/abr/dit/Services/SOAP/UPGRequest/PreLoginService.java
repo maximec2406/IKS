@@ -1,4 +1,4 @@
-package ru.abr.dit.Services.SOAP.ReqToCorr;
+package ru.abr.dit.Services.SOAP.UPGRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,6 +62,7 @@ public class PreLoginService {
             // проверяем, доступен ли сервис
             try {
                 soapResp = abrSoapConnection.createSOAPConnection().call(soapMessage, upgdao.getSourceURI());
+                soapResp.saveChanges();
             } catch (SOAPException e){
                 ls.addErrorLog(e, "Ошибка отправки запроса Prelogin. Возможно сервис недоступен");
                 soapResp = null;
@@ -71,10 +72,11 @@ public class PreLoginService {
             if (soapResp != null){
 
                 soapResp.writeTo(System.out);
+                System.out.println("\n");
                 // Разбор ответа prelogin начало
                 NodeList nl = soapResp.getSOAPBody().getElementsByTagName("return");
                 if (nl.getLength() == 5){
-                    loginService.sendLoginRequest(nl.item(0).getTextContent(),
+                    result = loginService.sendLoginRequest(nl.item(0).getTextContent(),
                             nl.item(1).getTextContent(),
                             nl.item(3).getTextContent(),
                             nl.item(4).getTextContent());

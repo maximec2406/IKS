@@ -118,8 +118,8 @@ export class AccountControllerComponent implements OnInit {
     if (this.dateFrom == null || this.dateTo == null)
       this.errorMsg="Даты для запроса не заполнены";
     else {
-      this.req.sendStmtReq(this.accId, this.dateFrom, this.dateTo).subscribe((data:any) => alert("Юху")) ;
-      this.errorMsg="Запрос успешно отправлен";
+      this.req.sendStmtReq(this.accId, this.dateFrom, this.dateTo).subscribe((data:any) => true);//alert("Юху")) ;
+      //this.errorMsg="Запрос успешно отправлен";
     }
   }
 

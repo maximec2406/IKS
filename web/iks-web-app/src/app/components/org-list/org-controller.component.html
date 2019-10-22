@@ -34,11 +34,13 @@
             <th>Bss_id</th>
             <th>Name</th>
             <th>legacy_id</th>
+            <th>inn</th>
           </tr>
           <tr *ngFor = 'let o of orgList' (click)="getOrgAccounts(o.id)">
             <td>{{o.extId}}</td>
             <td>{{o.name}}</td>
             <td>{{o.legacyId}}</td>
+            <td>{{o.inn}}</td>
           </tr>
         </table>
       </div>
@@ -69,6 +71,9 @@
         </p>
         <p>orgLegacyId
           <input type="text" [(ngModel)]="orgLegacyId">
+        </p>
+        <p>orgINN
+          <input type="text" [(ngModel)]="orgInn">
         </p>
         <p>
           <a class="waves-effect waves-light btn" (click)="createOrg()">Сохранить Организацию</a>

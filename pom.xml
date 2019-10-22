@@ -87,6 +87,12 @@
             <version>1.4.0</version>
         </dependency>
 <!--        Работа с soap конец-->
+
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.13</version>
+        </dependency>
     </dependencies>
 
 <!--    Профили для логирования начало

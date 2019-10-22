@@ -14,7 +14,7 @@ public class Account {
     private String account;
 
     @Column(nullable = false)
-    private int bic;
+    private String bic;
 
     @Column
     private String extid;
@@ -29,7 +29,7 @@ public class Account {
     public Account() {
     }
 
-    public Account(String account, int bic) {
+    public Account(String account, String bic) {
         this.account = account;
         this.bic = bic;
     }
@@ -46,11 +46,11 @@ public class Account {
         this.account = account;
     }
 
-    public int getBic() {
+    public String getBic() {
         return bic;
     }
 
-    public void setBic(int bic) {
+    public void setBic(String bic) {
         this.bic = bic;
     }
 
