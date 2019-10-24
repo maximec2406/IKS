@@ -72,6 +72,7 @@
           <element id="library" level="project" name="JAX-WS-Glassfish / JAX-WS 2.2 RI / Metro 1.X / JWSDP 2.2 (2)" />
           <element id="library" level="project" name="Maven: javax.xml.soap:javax.xml.soap-api:1.4.0" />
           <element id="library" level="project" name="srp-1.1-SNAPSHOT" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.13" />
         </element>
       </element>
     </root>

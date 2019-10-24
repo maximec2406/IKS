@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {RequestService} from "../../../services/request.service";
+import {PluginService} from "../../../services/plugin.service";
 
 @Component({
   selector: 'app-account-controller',
   templateUrl: './account-controller.component.html',
   styleUrls: ['./account-controller.component.css']
+
 })
 export class AccountControllerComponent implements OnInit {
 
@@ -19,8 +21,9 @@ export class AccountControllerComponent implements OnInit {
   errorMsg;
   dateFrom;
   dateTo;
+  plugin;
 
-  constructor(private req: RequestService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private req: RequestService, private router: Router, private route: ActivatedRoute, private pluginService : PluginService) { }
 
   ngOnInit() {
 
@@ -33,8 +36,8 @@ export class AccountControllerComponent implements OnInit {
     this.errorMsg = '';
     this.dateFrom = null;
     this.dateTo = null;
-
   }
+
 
   getAddAccForm(){
     this.isAddAcc = true;
@@ -115,6 +118,9 @@ export class AccountControllerComponent implements OnInit {
   }
 
   sendStateReq(){
+     // this.plugin = this.pluginService.updatePlugin();
+     // console.log(this.plugin);
+
     if (this.dateFrom == null || this.dateTo == null)
       this.errorMsg="Даты для запроса не заполнены";
     else {
@@ -126,8 +132,5 @@ export class AccountControllerComponent implements OnInit {
   clearErrorMsg(){
     this.errorMsg="";
   }
-
-
-
 
 }

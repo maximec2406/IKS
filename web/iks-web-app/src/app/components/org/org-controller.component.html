@@ -36,7 +36,7 @@
             <th>legacy_id</th>
             <th>inn</th>
           </tr>
-          <tr *ngFor = 'let o of orgList' (click)="getOrgAccounts(o.id)">
+          <tr *ngFor = 'let o of orgList' (click)="getOrgHome(o.id)">
             <td>{{o.extId}}</td>
             <td>{{o.name}}</td>
             <td>{{o.legacyId}}</td>

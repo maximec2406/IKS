@@ -36,4 +36,8 @@ export class RequestService {
     return this.http.post(this.serverUrl + "/account/stmtreq", {"id": accId, "dateFrom": dateFrom, "dateTo": dateTo},{headers:  this.getHeaders()})
   }
 
+  getRPayOrderList(orgId){
+    return [];// this.http.get(this.serverUrl + "/org/" + orgId + "/rpayorder",{headers:  this.getHeaders()});
+  }
+
 }

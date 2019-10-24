@@ -2,9 +2,8 @@ package ru.abr.dit.Services.SOAP.UPGDocumentBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.abr.dit.DAO.MainDAO;
-import ru.abr.dit.DAO.UPGDAO;
-import ru.abr.dit.Models.Account;
-import ru.abr.dit.Models.Org;
+import ru.abr.dit.Models.Entities.Account;
+import ru.abr.dit.Models.Entities.Org;
 import ru.abr.dit.Models.XMLTemplate.StatementRequest.*;
 import ru.abr.dit.Services.LogService;
 import ru.abr.dit.Services.SOAP.ABRSoapEnvelope;
@@ -43,9 +42,6 @@ public class StatementRequestBody {
 
     @Autowired
     LogService ls;
-
-    @Autowired
-    UPGDAO upgdao;
 
     @Autowired
     SendRequestService sendRequestService;

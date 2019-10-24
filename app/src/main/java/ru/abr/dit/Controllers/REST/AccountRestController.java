@@ -4,8 +4,8 @@ package ru.abr.dit.Controllers.REST;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.abr.dit.DAO.MainDAO;
-import ru.abr.dit.Models.Account;
-import ru.abr.dit.Models.Org;
+import ru.abr.dit.Models.Entities.Account;
+import ru.abr.dit.Models.Entities.Org;
 import ru.abr.dit.Services.SOAP.UPGDocumentBody.PayDocRuBody;
 import ru.abr.dit.Services.SOAP.UPGDocumentBody.StatementRequestBody;
 

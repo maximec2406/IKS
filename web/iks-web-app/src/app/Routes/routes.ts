@@ -1,6 +1,9 @@
 import { Routes } from "@angular/router";
-import {OrgControllerComponent} from "../components/org-list/org-controller.component";
+import {OrgControllerComponent} from "../components/org/org-controller.component";
 import {AccountControllerComponent} from "../components/account/account-controller/account-controller.component";
+import {OrgHomeComponent} from "../components/org/org-home/org-home.component";
+import {RpayorderControllerComponent} from "../components/documents/rpayorder-controller/rpayorder-controller.component";
+// import {PluginonloadGuard} from "../Guards/pluginonload.guard"
 
 // export let AccountRoutes : Routes = [
 //   {path: '', component: AccountListComponent},
@@ -11,7 +14,9 @@ import {AccountControllerComponent} from "../components/account/account-controll
 export let AppRoutes : Routes = [
   {path: '', redirectTo: '/org', pathMatch:'full'},
   {path:  'org', component: OrgControllerComponent},
-  {path: 'org/:orgId/accounts', component: AccountControllerComponent}//, children: AccountRoutes}
+  {path: 'org/:orgId', component: OrgHomeComponent},
+  {path: 'org/:orgId/accounts', component: AccountControllerComponent},// children: AccountRoutes}
+  {path: 'org/:orgId/rpayorder', component: RpayorderControllerComponent}
 ];
 
 

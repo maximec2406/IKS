@@ -1,4 +1,4 @@
-package ru.abr.dit.Models;
+package ru.abr.dit.Models.Entities;
 
 import javax.persistence.*;
 

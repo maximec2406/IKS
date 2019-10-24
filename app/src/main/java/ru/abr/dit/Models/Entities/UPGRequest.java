@@ -1,4 +1,4 @@
-package ru.abr.dit.Models;
+package ru.abr.dit.Models.Entities;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -6,10 +6,9 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
-
+@Table
 @Entity
-public class UPGResponse {
-
+public class UPGRequest {
 
     @Id
     @GeneratedValue(generator ="UUID")
@@ -23,22 +22,29 @@ public class UPGResponse {
     @Column (nullable = false, updatable = false)
     private Date createDateTime;
 
-    @Column
+    @Column (nullable = false)
+    private String status;
+
+    @Column(length = 3000)
     private String body;
+
+    @OneToOne(mappedBy = "request")
+    private UPGResponse response ;
 
     @ManyToOne
     private UPGSession session;
 
-    @OneToOne
-    private UPGRequest request;
+    @Column
+    private String type;
 
-    public UPGResponse() {
+    public UPGRequest() {
     }
 
-    public UPGResponse(String body,  UPGRequest request) {
+    public UPGRequest(String body, String type) {
         this.createDateTime = new Date();
+        this.status = "new";
+        this.type = type;
         this.body = body;
-        this.request = request;
     }
 
     public UUID getId() {
@@ -51,6 +57,14 @@ public class UPGResponse {
 
     public void setCreateDateTime(Date createDateTime) {
         this.createDateTime = createDateTime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public UPGSession getSession() {
@@ -69,13 +83,19 @@ public class UPGResponse {
         this.body = body;
     }
 
-    public UPGRequest getRequest() {
-        return request;
+    public UPGResponse getResponse() {
+        return response;
     }
 
-    public void setRequest(UPGRequest request) {
-        this.request = request;
+    public void setResponse(UPGResponse response) {
+        this.response = response;
     }
 
+    public String getType() {
+        return type;
+    }
 
+    public void setType(String type) {
+        this.type = type;
+    }
 }

@@ -1,4 +1,4 @@
-package ru.abr.dit.Models;
+package ru.abr.dit.Models.Entities;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -6,9 +6,10 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
-@Table
+
 @Entity
-public class UPGRequest {
+public class UPGResponse {
+
 
     @Id
     @GeneratedValue(generator ="UUID")
@@ -22,29 +23,22 @@ public class UPGRequest {
     @Column (nullable = false, updatable = false)
     private Date createDateTime;
 
-    @Column (nullable = false)
-    private String status;
-
-    @Column(length = 3000)
+    @Column
     private String body;
-
-    @OneToOne(mappedBy = "request")
-    private UPGResponse response ;
 
     @ManyToOne
     private UPGSession session;
 
-    @Column
-    private String type;
+    @OneToOne
+    private UPGRequest request;
 
-    public UPGRequest() {
+    public UPGResponse() {
     }
 
-    public UPGRequest(String body, String type) {
+    public UPGResponse(String body,  UPGRequest request) {
         this.createDateTime = new Date();
-        this.status = "new";
-        this.type = type;
         this.body = body;
+        this.request = request;
     }
 
     public UUID getId() {
@@ -57,14 +51,6 @@ public class UPGRequest {
 
     public void setCreateDateTime(Date createDateTime) {
         this.createDateTime = createDateTime;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public UPGSession getSession() {
@@ -83,19 +69,13 @@ public class UPGRequest {
         this.body = body;
     }
 
-    public UPGResponse getResponse() {
-        return response;
+    public UPGRequest getRequest() {
+        return request;
     }
 
-    public void setResponse(UPGResponse response) {
-        this.response = response;
+    public void setRequest(UPGRequest request) {
+        this.request = request;
     }
 
-    public String getType() {
-        return type;
-    }
 
-    public void setType(String type) {
-        this.type = type;
-    }
 }

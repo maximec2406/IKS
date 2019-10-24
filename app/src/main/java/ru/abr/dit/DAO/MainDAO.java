@@ -1,22 +1,20 @@
 package ru.abr.dit.DAO;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.abr.dit.Models.Account;
-import ru.abr.dit.Models.Org;
-import ru.abr.dit.Models.UPGRequest;
-import ru.abr.dit.Models.UPGSession;
+import ru.abr.dit.Models.Entities.Account;
+import ru.abr.dit.Models.Entities.Org;
+import ru.abr.dit.Models.Entities.UPGRequest;
+import ru.abr.dit.Models.Entities.UPGSession;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @Transactional

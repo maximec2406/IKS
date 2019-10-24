@@ -1,6 +1,7 @@
-package ru.abr.dit.Models;
+package ru.abr.dit.Models.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import ru.abr.dit.Models.Entities.Account;
 
 import javax.persistence.*;
 import java.util.List;

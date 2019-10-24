@@ -54,12 +54,8 @@ export class OrgControllerComponent implements OnInit {
     this.errorMsg='';
   }
 
-  getOrgAccounts(id){
-    this.router.navigate(['org/'+ id +'/accounts']);
+  getOrgHome(id){
+    this.router.navigate(['org/'+ id]);
   }
-
-
-
-
 
 }
