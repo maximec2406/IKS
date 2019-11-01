@@ -22,6 +22,8 @@ import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -59,12 +61,12 @@ public class SendRequestService {
 
 
         // Сохранение сессий, тела запроса и подготовка полного тела сообщения
-        UPGSession session = new UPGSession(sessionService.getSessionId(), new Date(), upgdao.getLogin());
+        UPGSession session = new UPGSession(sessionService.getSessionId(), Timestamp.valueOf(LocalDateTime.now()), upgdao.getLogin());
         mainDAO.saveSession(session);
 
-        UPGRequest request = new UPGRequest(requestBody, "StatementRequest");
+        UPGRequest request = new UPGRequest(requestBody.substring(0,3000), "StatementRequest");
         request.setSession(session);
-        mainDAO.saveRequest(request);
+        mainDAO.saveRequest(request); // слишком длинное тело запроса, нужн blob
 
         RequestModelsModel requestModelsModel = new RequestModelsModel();
         requestModelsModel.setRequestId(request.getId().toString());

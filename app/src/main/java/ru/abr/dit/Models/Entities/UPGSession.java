@@ -5,6 +5,8 @@ import ru.abr.dit.Models.Entities.UPGRequest;
 import ru.abr.dit.Models.Entities.UPGResponse;
 
 import javax.persistence.*;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class UPGSession {
     private String extId;
 
     @Column(nullable = false, updatable = false)
-    private Date dateTime;
+    private Timestamp dateTime;
 
     @Column(nullable = false, updatable = false)
     private String login;
@@ -37,7 +39,7 @@ public class UPGSession {
     public UPGSession() {
     }
 
-    public UPGSession(String extId, Date dateTime, String login) {
+    public UPGSession(String extId, Timestamp dateTime, String login) {
         this.extId = extId;
         this.dateTime = dateTime;
         this.login = login;
@@ -59,11 +61,11 @@ public class UPGSession {
         this.extId = extId;
     }
 
-    public Date getDateTime() {
+    public Timestamp getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(Date dateTime) {
+    public void setDateTime(Timestamp dateTime) {
         this.dateTime = dateTime;
     }
 

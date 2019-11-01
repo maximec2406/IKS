@@ -19,9 +19,8 @@ public class Account {
     @Column
     private String extid;
 
-    @Column
-    private String extBranchName;
-
+    @ManyToOne
+    private Branch branch;
 
     @ManyToOne
     private Org org;
@@ -62,19 +61,19 @@ public class Account {
         this.extid = extid;
     }
 
-    public String getExtBranchName() {
-        return extBranchName;
-    }
-
-    public void setExtBranchName(String extBranchName) {
-        this.extBranchName = extBranchName;
-    }
-
     public Org getOrg() {
         return org;
     }
 
     public void setOrg(Org org) {
         this.org = org;
+    }
+
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(Branch branch) {
+        this.branch = branch;
     }
 }

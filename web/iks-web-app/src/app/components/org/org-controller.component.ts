@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RequestService} from "../../services/request.service";
 import {Router} from "@angular/router";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-org-controller',
@@ -9,7 +10,7 @@ import {Router} from "@angular/router";
 })
 export class OrgControllerComponent implements OnInit {
 
-  orgList=[];
+  orgList=null;
   isAddOrg;
   orgExtId;
   orgName;
@@ -20,7 +21,7 @@ export class OrgControllerComponent implements OnInit {
   constructor(private req: RequestService, private router: Router) { }
 
   ngOnInit() {
-    this.req.getOrgs().subscribe((data:any)=> this.orgList = data) ;
+    this.getOrgs();
     this.isAddOrg = false;
     this.clearOrgForm();
     this.errorMsg = '';
@@ -44,9 +45,7 @@ export class OrgControllerComponent implements OnInit {
   createOrg(){
     let org = {"extId" : this.orgExtId, "name" : this.orgName, "legacyId" : this.orgLegacyId, "inn": this.orgInn}
     this.req.createOrg(org).subscribe((data:any) => {
-      if(data){
-        this.req.getOrgs().subscribe((data:any)=> {this.orgList = data; this.getOrgList()});
-      } else { this.errorMsg = 'Не удалось сохранить организацию'}
+      data ? this.getOrgs() : this.errorMsg = 'Не удалось сохранить организацию'
     });
   }
 
@@ -56,6 +55,13 @@ export class OrgControllerComponent implements OnInit {
 
   getOrgHome(id){
     this.router.navigate(['org/'+ id]);
+  }
+
+
+  getOrgs(){
+    this.req.getOrgs().then(
+      (data:any)=> this.orgList = data,
+      (data)=> {data instanceof HttpErrorResponse ? this.errorMsg = "ошибка запроса сервера" : this.orgList = []})//.subscribe((data:any)=> this.orgList = data) ;
   }
 
 }

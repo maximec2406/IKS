@@ -1,28 +1,26 @@
-package ru.abr.dit.Models.Entities;
+package ru.abr.dit.Models.Entities.Docs;
+import ru.abr.dit.Models.Entities.Bank;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 @Entity
 public class RPayOrder {
 
     @Id
-    @GeneratedValue(generator ="UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    @Column(updatable = false, nullable = false, unique = true)
+//    @GeneratedValue(generator ="UUID")
+//    @GenericGenerator(
+//            name = "UUID",
+//            strategy = "org.hibernate.id.UUIDGenerator"
+//    )
+//    @Column(updatable = false, nullable = false, unique = true)
+    @GeneratedValue
     private UUID id;
 
     @Column
-    private Date absAcceptDate; //время принятия в АБС
+    private Timestamp absAcceptDate; //время принятия в АБС
 
     @Column
     private boolean acceptIndividual; // Платеж не связан с предпринимательской деятельностью
@@ -31,9 +29,10 @@ public class RPayOrder {
     private String accountId; // счет организации
 
     @Column
-    private Date bankAcceptDate; // время принятия в банке
+    private Timestamp bankAcceptDate; // время принятия в банке
 
-    @Column
+    @Lob
+    @Column //(columnDefinition = "CLOB")
     private String bankMessage;
 
     @Column
@@ -88,7 +87,7 @@ public class RPayOrder {
     private String globalId; //
 
     @Column
-    private Date lastModifyDate;
+    private Timestamp lastModifyDate;
 
     @Column
     private String mbaAccountId; // идентификатор счета плательщика МБА
@@ -97,7 +96,7 @@ public class RPayOrder {
     private String mbaActionName; // имя действия МБА
 
     @Column
-    private Date mbaCreateDate; // дата и время создания документа
+    private Timestamp mbaCreateDate; // дата и время создания документа
 
     @Column
     private boolean mbaDoc; // признак документа МБА
@@ -130,7 +129,7 @@ public class RPayOrder {
     private Date operationDate;
 
     @Column
-    private  String operationType;
+    private String operationType;
 
     @Column
     private String orgId;
@@ -142,31 +141,36 @@ public class RPayOrder {
 
     @Column
     private Date payUntil;
-    
+
     @Column
     private String payerAccount;
-    
+
+    @ManyToOne
+    private Bank payerBank;
+
+    @ManyToOne
+    private Bank receiverBank;
     @Column
     private String payerBankBic;
-     
-    @Column 
-    private String payerBankCity;
-    
-    @Column
-    private String payerBankCorrAccount;
-    
-    @Column
-    private String payerBankName;
-    
-    @Column
-    private String payerBankSettlementType;
-    
+//
+//    @Column
+//    private String payerBankCity;
+//
+//    @Column
+//    private String payerBankCorrAccount;
+//
+//    @Column
+//    private String payerBankName;
+//
+//    @Column
+//    private String payerBankSettlementType;
+
     @Column
     private String payerINN;
-    
+
     @Column
     private String payerKPP;
-    
+
     @Column
     private String payerName;
 
@@ -199,18 +203,18 @@ public class RPayOrder {
 
     @Column
     private String receiverBankBic;
-
-    @Column
-    private String receiverBankCity;
-
-    @Column
-    private String receiverBankCorrAccount;
-
-    @Column
-    private String receiverBankName;
-
-    @Column
-    private String receiverBankSettlementType;
+//
+//    @Column
+//    private String receiverBankCity;
+//
+//    @Column
+//    private String receiverBankCorrAccount;
+//
+//    @Column
+//    private String receiverBankName;
+//
+//    @Column
+//    private String receiverBankSettlementType;
 
     @Column
     private String receiverINN;
@@ -270,14 +274,6 @@ public class RPayOrder {
         return id;
     }
 
-    public Date getAbsAcceptDate() {
-        return absAcceptDate;
-    }
-
-    public void setAbsAcceptDate(Date absAcceptDate) {
-        this.absAcceptDate = absAcceptDate;
-    }
-
     public boolean isAcceptIndividual() {
         return acceptIndividual;
     }
@@ -292,14 +288,6 @@ public class RPayOrder {
 
     public void setAccountId(String accountId) {
         this.accountId = accountId;
-    }
-
-    public Date getBankAcceptDate() {
-        return bankAcceptDate;
-    }
-
-    public void setBankAcceptDate(Date bankAcceptDate) {
-        this.bankAcceptDate = bankAcceptDate;
     }
 
     public String getBankMessage() {
@@ -446,14 +434,6 @@ public class RPayOrder {
         this.globalId = globalId;
     }
 
-    public Date getLastModifyDate() {
-        return lastModifyDate;
-    }
-
-    public void setLastModifyDate(Date lastModifyDate) {
-        this.lastModifyDate = lastModifyDate;
-    }
-
     public String getMbaAccountId() {
         return mbaAccountId;
     }
@@ -468,14 +448,6 @@ public class RPayOrder {
 
     public void setMbaActionName(String mbaActionName) {
         this.mbaActionName = mbaActionName;
-    }
-
-    public Date getMbaCreateDate() {
-        return mbaCreateDate;
-    }
-
-    public void setMbaCreateDate(Date mbaCreateDate) {
-        this.mbaCreateDate = mbaCreateDate;
     }
 
     public boolean isMbaDoc() {
@@ -606,46 +578,6 @@ public class RPayOrder {
         this.payerAccount = payerAccount;
     }
 
-    public String getPayerBankBic() {
-        return payerBankBic;
-    }
-
-    public void setPayerBankBic(String payerBankBic) {
-        this.payerBankBic = payerBankBic;
-    }
-
-    public String getPayerBankCity() {
-        return payerBankCity;
-    }
-
-    public void setPayerBankCity(String payerBankCity) {
-        this.payerBankCity = payerBankCity;
-    }
-
-    public String getPayerBankCorrAccount() {
-        return payerBankCorrAccount;
-    }
-
-    public void setPayerBankCorrAccount(String payerBankCorrAccount) {
-        this.payerBankCorrAccount = payerBankCorrAccount;
-    }
-
-    public String getPayerBankName() {
-        return payerBankName;
-    }
-
-    public void setPayerBankName(String payerBankName) {
-        this.payerBankName = payerBankName;
-    }
-
-    public String getPayerBankSettlementType() {
-        return payerBankSettlementType;
-    }
-
-    public void setPayerBankSettlementType(String payerBankSettlementType) {
-        this.payerBankSettlementType = payerBankSettlementType;
-    }
-
     public String getPayerINN() {
         return payerINN;
     }
@@ -740,46 +672,6 @@ public class RPayOrder {
 
     public void setReceiverAccount(String receiverAccount) {
         this.receiverAccount = receiverAccount;
-    }
-
-    public String getReceiverBankBic() {
-        return receiverBankBic;
-    }
-
-    public void setReceiverBankBic(String receiverBankBic) {
-        this.receiverBankBic = receiverBankBic;
-    }
-
-    public String getReceiverBankCity() {
-        return receiverBankCity;
-    }
-
-    public void setReceiverBankCity(String receiverBankCity) {
-        this.receiverBankCity = receiverBankCity;
-    }
-
-    public String getReceiverBankCorrAccount() {
-        return receiverBankCorrAccount;
-    }
-
-    public void setReceiverBankCorrAccount(String receiverBankCorrAccount) {
-        this.receiverBankCorrAccount = receiverBankCorrAccount;
-    }
-
-    public String getReceiverBankName() {
-        return receiverBankName;
-    }
-
-    public void setReceiverBankName(String receiverBankName) {
-        this.receiverBankName = receiverBankName;
-    }
-
-    public String getReceiverBankSettlementType() {
-        return receiverBankSettlementType;
-    }
-
-    public void setReceiverBankSettlementType(String receiverBankSettlementType) {
-        this.receiverBankSettlementType = receiverBankSettlementType;
     }
 
     public String getReceiverINN() {
@@ -917,4 +809,70 @@ public class RPayOrder {
     public void setCurrentStatus(String currentStatus) {
         this.currentStatus = currentStatus;
     }
+
+    public Timestamp getAbsAcceptDate() {
+        return absAcceptDate;
+    }
+
+    public void setAbsAcceptDate(Timestamp absAcceptDate) {
+        this.absAcceptDate = absAcceptDate;
+    }
+
+    public Timestamp getBankAcceptDate() {
+        return bankAcceptDate;
+    }
+
+    public void setBankAcceptDate(Timestamp bankAcceptDate) {
+        this.bankAcceptDate = bankAcceptDate;
+    }
+
+    public Timestamp getLastModifyDate() {
+        return lastModifyDate;
+    }
+
+    public void setLastModifyDate(Timestamp lastModifyDate) {
+        this.lastModifyDate = lastModifyDate;
+    }
+
+    public Timestamp getMbaCreateDate() {
+        return mbaCreateDate;
+    }
+
+    public void setMbaCreateDate(Timestamp mbaCreateDate) {
+        this.mbaCreateDate = mbaCreateDate;
+    }
+
+    public Bank getPayerBank() {
+        return payerBank;
+    }
+
+    public void setPayerBank(Bank payerBank) {
+        this.payerBank = payerBank;
+    }
+
+    public Bank getReceiverBank() {
+        return receiverBank;
+    }
+
+    public void setReceiverBank(Bank receiverBank) {
+        this.receiverBank = receiverBank;
+    }
+
+    public String getPayerBankBic() {
+        return payerBankBic;
+    }
+
+    public void setPayerBankBic(String payerBankBic) {
+        this.payerBankBic = payerBankBic;
+    }
+
+    public String getReceiverBankBic() {
+        return receiverBankBic;
+    }
+
+    public void setReceiverBankBic(String receiverBankBic) {
+        this.receiverBankBic = receiverBankBic;
+    }
+
+
 }

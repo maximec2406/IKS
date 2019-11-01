@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {RPayOrder} from "../Model/RPayOrder.model";
 
 @Injectable()
 export class RequestService {
@@ -13,7 +14,7 @@ export class RequestService {
   }
 
   getOrgs(){
-    return this.http.get(this.serverUrl + "/org/all", {headers: this.getHeaders()})
+      return this.http.get(this.serverUrl + "/org/all", {headers: this.getHeaders()}).toPromise();
   }
 
   createOrg(org){
@@ -38,6 +39,19 @@ export class RequestService {
 
   getRPayOrderList(orgId){
     return [];// this.http.get(this.serverUrl + "/org/" + orgId + "/rpayorder",{headers:  this.getHeaders()});
+  }
+
+  createRPayOrder(doc: RPayOrder){
+    return this.http.post(this.serverUrl + "/rpayorder/new", doc,{headers:  this.getHeaders()}).toPromise();
+
+  }
+
+  getFilialList(){
+    return this.http.get(this.serverUrl + "/account/filials",{headers:  this.getHeaders()}).toPromise();
+  }
+
+  getBankList(){
+    return this.http.get(this.serverUrl + "/account/banks",{headers:  this.getHeaders()}).toPromise();
   }
 
 }

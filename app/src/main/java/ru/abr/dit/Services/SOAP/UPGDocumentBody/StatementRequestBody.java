@@ -79,7 +79,7 @@ public class StatementRequestBody {
         acc.setAccount(account.getAccount());
         acc.setBankBIC(String.valueOf(account.getBic()));
         acc.setOrgName(account.getOrg().getName());
-        acc.setBankName(account.getExtBranchName());
+        acc.setBankName(account.getBranch().getExtId());
 
         accounts.getAcc().add(acc);
 

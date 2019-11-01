@@ -139,3 +139,11 @@ nav {
   padding-right: 2em;
 }
 
+.abr-select{
+  opacity: 1;
+  height: 3em;
+  width: 100%;
+  position: relative;
+  display: block;
+}
+

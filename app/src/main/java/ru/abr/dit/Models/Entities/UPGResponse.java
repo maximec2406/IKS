@@ -3,6 +3,9 @@ package ru.abr.dit.Models.Entities;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -12,18 +15,15 @@ public class UPGResponse {
 
 
     @Id
-    @GeneratedValue(generator ="UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
+    @GeneratedValue
     @Column(updatable = false, nullable = false, unique = true)
     private UUID id;
 
     @Column (nullable = false, updatable = false)
-    private Date createDateTime;
+    private Timestamp createDateTime;
 
-    @Column
+    @Lob
+    @Column //(columnDefinition = "CLOB")
     private String body;
 
     @ManyToOne
@@ -36,7 +36,7 @@ public class UPGResponse {
     }
 
     public UPGResponse(String body,  UPGRequest request) {
-        this.createDateTime = new Date();
+        this.createDateTime = Timestamp.valueOf(LocalDateTime.now());
         this.body = body;
         this.request = request;
     }
@@ -45,11 +45,15 @@ public class UPGResponse {
         return id;
     }
 
-    public Date getCreateDateTime() {
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public Timestamp getCreateDateTime() {
         return createDateTime;
     }
 
-    public void setCreateDateTime(Date createDateTime) {
+    public void setCreateDateTime(Timestamp createDateTime) {
         this.createDateTime = createDateTime;
     }
 

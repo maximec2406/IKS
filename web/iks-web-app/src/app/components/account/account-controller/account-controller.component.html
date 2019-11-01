@@ -29,19 +29,22 @@
       <div *ngIf="accList.length > 0">
         <table border='1'>
           <tr>
-            <th>number</th>
-            <th>branch name</th>
-            <th>bic</th>
+            <th>Счет</th>
+            <th>БИК</th>
+            <th>Филиал</th>
           </tr>
           <tr *ngFor = 'let acc of accList' (click)="editAccount(acc)">
             <td>{{acc.account}}</td>
-            <td>{{acc.extBranchName}}</td>
             <td>{{acc.bic}}</td>
+            <td>{{acc.branch.name}}</td>
           </tr>
         </table>
       </div>
-      <div *ngIf="!accList.length > 0">
+      <div *ngIf="accList != null ? accList.length == 0 : false">
         <p>Счета не заведены</p>
+      </div>
+      <div *ngIf="accList == null">
+        <p>Запрос списка счетов, подождите</p>
       </div>
     </div>
   </div>
@@ -59,14 +62,15 @@
     </div>
     <div class="abr-list-body">
       <div>
-        <p>accNumber
+        <p>Счет
           <input type="text" [(ngModel)]="accNumber">
         </p>
-        <p>accBranchName
-          <input type="text" [(ngModel)]="accBranchName">
-        </p>
-        <p>accBic
-          <input type="text" [(ngModel)]="accBic">
+        <p>Филиал</p>
+          <select class="abr-select"(change)=setFilialForAccount($event.target.value) [(ngModel)]="filial">
+            <option *ngFor="let f of filialList" value="{{f.id}}" >{{f.name}}</option>
+          </select>
+        <p>БИК
+          <input type="text" [(ngModel)]="accBic" disabled>
         </p>
         <div *ngIf="accId != 0">
           <div class="row">

@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { OrgControllerComponent } from './components/org/org-controller.component';
-import {FormsModule} from "@angular/forms";
+import {FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
 import {AppRoutes} from "./Routes/routes";
 import {AppRoutingModule} from "./app-routing.module";
@@ -15,6 +15,8 @@ import {PluginService} from "./services/plugin.service";
 import { RpayorderControllerComponent } from './components/documents/rpayorder-controller/rpayorder-controller.component';
 import { OrgHomeComponent } from './components/org/org-home/org-home.component';
 import {FormBuilder} from "@angular/forms";
+import {CheckrpayorderService} from "./services/checks/checkrpayorder.service";
+import {MaterializeModule} from "angular2-materialize";
 
 
 const routes = AppRoutes;
@@ -33,12 +35,15 @@ const routes = AppRoutes;
     FormsModule,
     RouterModule.forRoot(routes),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    MaterializeModule
   ],
   providers: [
     RequestService,
     PluginService,
-    FormBuilder
+    FormBuilder,
+    CheckrpayorderService
   ],
   bootstrap: [AppComponent]
 })

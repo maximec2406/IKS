@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {RequestService} from "../../../services/request.service";
 import {PluginService} from "../../../services/plugin.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-account-controller',
@@ -22,6 +23,8 @@ export class AccountControllerComponent implements OnInit {
   dateFrom;
   dateTo;
   plugin;
+  filialList;
+  filial;
 
   constructor(private req: RequestService, private router: Router, private route: ActivatedRoute, private pluginService : PluginService) { }
 
@@ -36,6 +39,9 @@ export class AccountControllerComponent implements OnInit {
     this.errorMsg = '';
     this.dateFrom = null;
     this.dateTo = null;
+    this.req.getFilialList().then(
+      (data) => {this.filialList = data; this.filial = this.filialList[0].id; this.accBic = this.filialList[0].bic},
+      (data) => {this.errorMsg = "Ошибка запроса сервера"})
   }
 
 
@@ -62,7 +68,7 @@ export class AccountControllerComponent implements OnInit {
       let acc = {
         "id": this.accId,
         "account": this.accNumber,
-        "extBranchName": this.accBranchName,
+        "branchId": this.filial,
         "bic": this.accBic,
         "orgId": this.orgId
       };
@@ -131,6 +137,10 @@ export class AccountControllerComponent implements OnInit {
 
   clearErrorMsg(){
     this.errorMsg="";
+  }
+
+  setFilialForAccount(f){
+    this.accBic = this.filialList.filter((f)=>{return f.id == this.filial})[0].bic ;
   }
 
 }

@@ -14,6 +14,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import ru.abr.dit.DAO.MainDAO;
+import sun.applet.resources.MsgAppletViewer;
+
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.xml.soap.MessageFactory;
@@ -46,7 +50,7 @@ public class ApplicationConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean
     public EntityManagerFactory createEntityManagerFactory(){
-        return Persistence.createEntityManagerFactory("TestPersistUnit");
+        return Persistence.createEntityManagerFactory("TestPostgresPersistUnit");
     }
 
     @Bean
@@ -99,6 +103,11 @@ public class ApplicationConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public SimpleDateFormat getSimpleDateFormat() throws ParseException {
         return new SimpleDateFormat("yyyy-MM-dd");
+    }
+
+    @Bean
+    public TestData createTestData(@Autowired MainDAO dao){
+        return new TestData(dao);
     }
 
 }

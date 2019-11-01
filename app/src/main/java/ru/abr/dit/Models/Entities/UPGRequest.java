@@ -1,8 +1,11 @@
 package ru.abr.dit.Models.Entities;
 
+import org.h2.api.TimestampWithTimeZone;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -11,21 +14,17 @@ import java.util.UUID;
 public class UPGRequest {
 
     @Id
-    @GeneratedValue(generator ="UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    @Column(updatable = false, nullable = false, unique = true)
+    @GeneratedValue
     private UUID id;
 
     @Column (nullable = false, updatable = false)
-    private Date createDateTime;
+    private Timestamp createDateTime;
 
     @Column (nullable = false)
     private String status;
 
-    @Column(length = 3000)
+    @Lob
+    @Column //(columnDefinition = "CLOB")
     private String body;
 
     @OneToOne(mappedBy = "request")
@@ -41,7 +40,7 @@ public class UPGRequest {
     }
 
     public UPGRequest(String body, String type) {
-        this.createDateTime = new Date();
+        this.createDateTime = Timestamp.valueOf(LocalDateTime.now());
         this.status = "new";
         this.type = type;
         this.body = body;
@@ -51,11 +50,11 @@ public class UPGRequest {
         return id;
     }
 
-    public Date getCreateDateTime() {
+    public Timestamp getCreateDateTime() {
         return createDateTime;
     }
 
-    public void setCreateDateTime(Date createDateTime) {
+    public void setCreateDateTime(Timestamp createDateTime) {
         this.createDateTime = createDateTime;
     }
 

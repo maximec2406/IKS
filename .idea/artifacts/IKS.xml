@@ -73,6 +73,7 @@
           <element id="library" level="project" name="Maven: javax.xml.soap:javax.xml.soap-api:1.4.0" />
           <element id="library" level="project" name="srp-1.1-SNAPSHOT" />
           <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.13" />
+          <element id="library" level="project" name="Maven: postgresql:postgresql:9.1-901-1.jdbc4" />
         </element>
       </element>
     </root>

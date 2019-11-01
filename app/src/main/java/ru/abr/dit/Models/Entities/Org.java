@@ -21,7 +21,7 @@ public class Org {
     private String name;
 
     @Column(nullable = false, unique = true)
-    private int legacyId;
+    private String legacyId;
 
     @OneToMany(mappedBy = "org", fetch = FetchType.LAZY)
     @JsonIgnore
@@ -33,7 +33,7 @@ public class Org {
     public Org() {
     }
 
-    public Org(String extId, String name, int legacyId, String inn) {
+    public Org(String extId, String name, String legacyId, String inn) {
         this.extId = extId;
         this.name = name;
         this.legacyId = legacyId;
@@ -61,11 +61,11 @@ public class Org {
         this.name = name;
     }
 
-    public int getLegacyId() {
+    public String getLegacyId() {
         return legacyId;
     }
 
-    public void setLegacyId(int legacyId) {
+    public void setLegacyId(String legacyId) {
         this.legacyId = legacyId;
     }
 
