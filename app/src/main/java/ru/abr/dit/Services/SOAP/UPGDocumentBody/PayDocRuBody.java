@@ -61,6 +61,12 @@ public class PayDocRuBody {
 
     }
 
+    public boolean updateRPayOrder(RPayOrder newDoc){
+
+        return dao.saveRPayOrder(newDoc);
+
+    }
+
     public String createPayDocRu2(RPayOrder rpo) throws JAXBException, IOException {
 
         PayDocRu payDocRu = of.createPayDocRu();

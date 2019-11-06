@@ -24,6 +24,15 @@ public class RPayOrderController {
 
     }
 
+    @PostMapping("/save")
+    public boolean saveRPayOrder(@RequestBody RPayOrder doc){
+
+        return payDocRuBody.updateRPayOrder(doc);
+
+    }
+
+
+
 
 
 }

@@ -264,6 +264,7 @@ public class RPayOrder {
     @Column
     private String currentStatus;
 
+    @Lob
     @Column
     private String signCollection;
 

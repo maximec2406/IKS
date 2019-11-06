@@ -38,14 +38,16 @@ export class RequestService {
   }
 
   getRPayOrderList(orgId){
-    return [];// this.http.get(this.serverUrl + "/org/" + orgId + "/rpayorder",{headers:  this.getHeaders()});
+    return this.http.get(this.serverUrl + "/org/" + orgId + "/rpayorder",{headers:  this.getHeaders()}).toPromise();
   }
 
   createRPayOrder(doc: RPayOrder){
     return this.http.post(this.serverUrl + "/rpayorder/new", doc,{headers:  this.getHeaders()}).toPromise();
-
   }
 
+  saveRPayOrder(doc: RPayOrder){
+    return this.http.post(this.serverUrl + "/rpayorder/save", doc,{headers:  this.getHeaders()}).toPromise();
+  }
   getFilialList(){
     return this.http.get(this.serverUrl + "/account/filials",{headers:  this.getHeaders()}).toPromise();
   }

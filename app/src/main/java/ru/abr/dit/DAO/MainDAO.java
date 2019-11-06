@@ -284,6 +284,26 @@ public class MainDAO {
         }
     }
 
+    public boolean saveRPayOrder(RPayOrder newRpo){
+        try{
+            em.merge(newRpo);
+            return true;
+        }  catch (Exception e){
+            this.addErrorLog(e);
+            return false;
+        }
+    }
+
+    public List<RPayOrder> getRPayOrderByOrgId(int id){
+        try{
+            List<RPayOrder> l =  em.createQuery("from RPayOrder where orgId=:id").setParameter("id",String.valueOf(id)).getResultList();
+            return l;
+        }  catch (Exception e){
+            this.addErrorLog(e);
+            return null;
+        }
+    }
+
     // Платежные поручения конец
 
     // Документы конец
