@@ -304,6 +304,15 @@ public class MainDAO {
         }
     }
 
+    public RPayOrder findRPayOrderById(String id){
+        try{
+            return (RPayOrder) em.createQuery("from RPayOrder where id=:id").setParameter("id",UUID.fromString(id)).getSingleResult();
+        }  catch (Exception e){
+            this.addErrorLog(e);
+            return null;
+        }
+    }
+
     // Платежные поручения конец
 
     // Документы конец

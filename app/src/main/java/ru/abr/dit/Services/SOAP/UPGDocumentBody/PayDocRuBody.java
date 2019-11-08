@@ -39,17 +39,17 @@ public class PayDocRuBody {
     private ObjectFactory of = new ObjectFactory();
     private final static QName _PayDocRu_QNAME = new QName("http://bssys.com/sbns/integration", "PayDocRu");
 
-    public void sendPayDocRu(RPayOrder rpo) throws ParseException, JAXBException, SOAPException, IOException {
+    public void sendPayDocRu(String id) throws JAXBException, IOException, SOAPException {
 
-        //sendRequestService.sendRequest(createPayDocRu(rpo));
-        //createPayDocRu(rpo);
+        RPayOrder rpo = dao.findRPayOrderById(id);
+        sendRequestService.sendRequest(createPayDocRu(rpo));
     }
 
-    public UUID createPayDocRu(RPayOrder rpo){
+    public UUID createRPayOrder(RPayOrder rpo){
 
         Org o = dao.findOrgById(Integer.valueOf(rpo.getOrgId()));
         Bank payerBank = dao.getBankByBic(rpo.getPayerBankBic());
-        Bank receiverBank = dao.getBankByBic(rpo.getPayerBankBic());
+        Bank receiverBank = dao.getBankByBic(rpo.getReceiverBankBic());
 
         rpo.setAccountId(dao.getAccIdByNumber(rpo.getPayerAccount()));
         rpo.setNotifyByEmail(false);
@@ -67,12 +67,23 @@ public class PayDocRuBody {
 
     }
 
-    public String createPayDocRu2(RPayOrder rpo) throws JAXBException, IOException {
+    public String createPayDocRu(RPayOrder rpo) throws JAXBException {
+
+
+        Org o = dao.findOrgById(Integer.valueOf(rpo.getOrgId()));
+        Bank payerBank = dao.getBankByBic(rpo.getPayerBankBic());
+        Bank receiverBank = dao.getBankByBic(rpo.getReceiverBankBic());
+
+        rpo.setAccountId(dao.getAccIdByNumber(rpo.getPayerAccount()));
+        rpo.setNotifyByEmail(false);
+        rpo.setNotifyBySMS(false);
+        rpo.setPayerBank(payerBank);
+        rpo.setReceiverBank(receiverBank);
 
         PayDocRu payDocRu = of.createPayDocRu();
         payDocRu.setMbaDoc(rpo.isMbaDoc());//false);
         payDocRu.setBudgetaryPayment(rpo.isBudgetaryPayment() );//false);
-        payDocRu.setAccountId(rpo.getAccountId());
+        payDocRu.setAccountId("e0e91a9c-f448-4779-8267-921c350617b0");//rpo.getAccountId());
         payDocRu.setNotifyByEmail(rpo.isNotifyByEmail() );
         payDocRu.setNotifyBySMS(rpo.isNotifyBySMS());
         payDocRu.setCbc(rpo.getCbc());
@@ -128,9 +139,6 @@ public class PayDocRuBody {
         payDocRu.setVatRate(new BigDecimal(rpo.getVatRate())); // сумма ндс
         payDocRu.setVatSum(new BigDecimal(rpo.getVatSum()));
 
-//       PayDocRu.PayDocRuSignCollection payDocRuSignCollection = of.createPayDocRuSignCollection();
-//       payDocRu.setSignCollection(payDocRuSignCollection);
-
         PayDocRu.PayDocRuSignCollection payDocRuSignCollection = createPayDocRuSignCollection(of, rpo);
         payDocRu.setSignCollection(payDocRuSignCollection);
 
@@ -148,11 +156,12 @@ public class PayDocRuBody {
         PayDocRu.PayDocRuSignCollection payDocRuSignCollection = of.createPayDocRuSignCollection();
         PayDocRu.PayDocRuSignCollection.pdrSignCollection pdrSignCollection = of.createPayDocRuSignCollectionSignCollection();
         PayDocRu.PayDocRuSignCollection.pdrSignCollection.Signs signs = of.createPayDocRuSignCollectionSignCollectionSigns();
+        pdrSignCollection.setDigestName("com.bssys.sbns.dbo.rur.payment.R030SignDigest");
         PayDocRu.PayDocRuSignCollection.pdrSignCollection.Signs.pdrSign pdrSign = of.createPayDocRuSignCollectionSignCollectionSignsSign();
 
 
         pdrSign.setCertificateGuid("468dd0db-60b3-429c-895b-6f4dacce9063");
-        pdrSign.setContent(rpo.getSignCollection().replaceAll("\n",""));
+        pdrSign.setContent(rpo.getSignCollection());//.replaceAll("\n",""));
         //pdrSign.setContentLarge(rpo.getSignCollection());
         pdrSign.setDigestScheme("com.bssys.sbns.dbo.rur.payment.R030SignDigest");
         pdrSign.setUserName("test9");
@@ -160,9 +169,9 @@ public class PayDocRuBody {
         pdrSign.setSignerFullName("Образцов Михаил Юрьевич");
         pdrSign.setSafeTouchAutoSign(false);
         pdrSign.setDigestSchemeVersion(14);
-        //pdrSign.setSignHash();
+        pdrSign.setSignHash(rpo.getSignHash());
         pdrSign.setDigestSchemeFormat("");
-        pdrSign.setDigestSchemeVersion(1);
+        pdrSign.setDigestSchemeVersion(14);
         pdrSign.setDtCreate(xmlGregorianCalendarConverter.asXMLGregorianCalendar(new Date()));
         pdrSign.setOrgId("0ce353c5-9a53-497d-ad02-df1fb6c37feb");
         pdrSign.setOrgName("АО \"РЗК\"");

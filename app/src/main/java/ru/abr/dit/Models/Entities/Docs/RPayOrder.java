@@ -266,6 +266,10 @@ public class RPayOrder {
 
     @Lob
     @Column
+    private String signHash;
+
+    @Lob
+    @Column
     private String signCollection;
 
     public RPayOrder() {
@@ -875,5 +879,11 @@ public class RPayOrder {
         this.receiverBankBic = receiverBankBic;
     }
 
+    public String getSignHash() {
+        return signHash;
+    }
 
+    public void setSignHash(String signHash) {
+        this.signHash = signHash;
+    }
 }

@@ -68,6 +68,7 @@ export class RPayOrder{
       this.vatSum = '0';
       this.currentStatus = 'new';
       this.signCollection = '';
+      this.signHash = '';
     }
   }
 
@@ -135,6 +136,7 @@ export class RPayOrder{
   vatSum: String;
   currentStatus: String;
   signCollection: String;
+  signHash: String;
   orgId: number;
   payerBank: Object;
   receiverBank: Object;

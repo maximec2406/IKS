@@ -48,6 +48,10 @@ export class RequestService {
   saveRPayOrder(doc: RPayOrder){
     return this.http.post(this.serverUrl + "/rpayorder/save", doc,{headers:  this.getHeaders()}).toPromise();
   }
+
+  sendRPayOrder(id: String){
+    return this.http.get(this.serverUrl + "/rpayorder/send/" + id,{headers:  this.getHeaders()}).toPromise();
+  }
   getFilialList(){
     return this.http.get(this.serverUrl + "/account/filials",{headers:  this.getHeaders()}).toPromise();
   }
