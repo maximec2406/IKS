@@ -17,6 +17,7 @@ import { OrgHomeComponent } from './components/org/org-home/org-home.component';
 import {FormBuilder} from "@angular/forms";
 import {CheckrpayorderService} from "./services/checks/checkrpayorder.service";
 import {MaterializeModule} from "angular2-materialize";
+import { LoginComponent } from './components/login/login.component';
 
 
 const routes = AppRoutes;
@@ -28,6 +29,7 @@ const routes = AppRoutes;
     AccountControllerComponent,
     RpayorderControllerComponent,
     OrgHomeComponent,
+    LoginComponent,
 
   ],
   imports: [

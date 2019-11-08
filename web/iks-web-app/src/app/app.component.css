@@ -1,6 +1,6 @@
-body {
-  height: 100%;
-  width: 100%;
+.abr-page{
+  height: 100vh;
+  width: 100vw;
   margin: 0;
 }
 
@@ -93,6 +93,7 @@ body {
 
 nav {
   box-shadow: none !important;
+
 }
 
 .abr-content-head-nav > div {

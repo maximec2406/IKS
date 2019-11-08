@@ -60,4 +60,9 @@ export class RequestService {
     return this.http.get(this.serverUrl + "/account/banks",{headers:  this.getHeaders()}).toPromise();
   }
 
+  login(){
+    return this.http.get(this.serverUrl + "/login",{headers:  this.getHeaders()}).toPromise();
+  }
+
+
 }
